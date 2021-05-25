@@ -122,7 +122,28 @@ i {
   margin: 20px 0;
   height: 350px;
   width: 100%;
+  overflow: hidden;
   position: relative;
+}
+
+.list-view li {
+  text-align: left;
+  padding: 10px 10px 10px 40px;
+  list-style-type: none;
+  position: relative;
+}
+
+.list-view li::before {
+  content: '\f0a4';
+  font-family: "Font Awesome 5 Pro";
+  position: absolute;
+  font-size: 20px;
+  color: #0996f5;
+  left: 10px;
+}
+
+.list-view li:nth-child(odd) {
+  background: #ececec;
 }
 
 .list-view-option {
