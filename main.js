@@ -54,6 +54,8 @@ addTaskForm.addEventListener("submit",(e) => {
     insertFunc();
 });
 
+
+
 // ui
 function updateUI() {
     ul.innerHTML = '';
@@ -74,6 +76,7 @@ function updateUI() {
 
         lisettings.classList.add('lists-settings');
         icheck.classList.add('fa', 'fa-check', 'complete');
+        icheck.style.color = (elem.isCompleted == 0)? "#c7bebe": "#18be09";
         iopt.classList.add('fas', 'fa-ellipsis-v', 'option-icon');
         iconoptions.classList.add('options');
         edit.classList.add('edit', 'fas', 'fa-pen-square');
@@ -150,3 +153,16 @@ function isDuplicate(value) {
 }
 
 updateUI();
+
+//check completed buttons
+
+document.querySelectorAll(".complete").forEach( (elem,index) => {
+    elem.addEventListener("click", ()=>{
+        
+        let tasks = getTaskArray();
+
+        elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
+        tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
+        storeTaskArray(tasks);
+    });
+});
