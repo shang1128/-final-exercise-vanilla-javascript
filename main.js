@@ -32,12 +32,16 @@ let storeTaskArray = (TaskArray)=> {
 let count = () => {
     let taskArray = getTaskArray();
     let count = 0;
-    taskArray.forEach(elem => {
-        count += (elem.isCompleted == 0)? 1: 0;
-    });
+    if(taskArray){
+        taskArray.forEach(elem => {
+            count += (elem.isCompleted == 0)? 1: 0;
+        });
+    }
 
     countText.innerText = `${count} Items left`;
 }
+
+count();
 
 //insert function
 
@@ -47,6 +51,7 @@ let insertFunc = ()=>{
         check();
         updateUI();
         inputs.value = "";
+        count();
     }
 }
 
@@ -91,20 +96,30 @@ let deleteTask = () => {
     });
 }
 
+//swap display
+
+let swapDisplay = (element1,element2) => {
+    element1.style.display = (element1.style.display == "none")? "flex": "none";
+    element2.style.display = (element2.style.display == "none")? "flex": "none";
+}
+
 //edit functionality
 
-let editFunction = () => {
+let editFunction = (index) => {
     let taskArray = getTaskArray();
-    let inputs = document.querySelector(".edit-input");
-    if(document.querySelector(".edit-form")){
-        document.querySelector(".edit-form").addEventListener("submit", (e) => {
+    if(document.querySelector(`#${index}-input`)){
+        document.querySelector(`#${index}-form`).addEventListener("submit", (e) => {
             e.preventDefault();
-            let index = document.querySelector(".edit-index").value;
-            taskArray[index].task = inputs.value;
+            let textvalue = document.querySelector(`#${index}-input`).value;
+            taskArray = taskArray.map( elem=> {
+                return (elem.id == index)? {id:elem.id, task:textvalue, isCompleted: elem.isCompleted}: elem;
+            });
+            document.querySelector(`#${index}-span`).innerText = textvalue;
+            swapDisplay(document.querySelector(`#${index}-form`),document.querySelector(`#${index}-span`));
             storeTaskArray(taskArray);
-            updateUI();
         });
     }
+    
 }
 
 
@@ -113,20 +128,20 @@ let editFunction = () => {
 
 let editTask = ()=>{
     let taskArray = getTaskArray();
-    document.querySelectorAll(".edit").forEach((elem,index)=>{
-        elem.addEventListener("click", ()=>{
-            let textElement = document.querySelectorAll("li span");
-            textElement.forEach( (elem,index) => {
-                elem.innerText = taskArray[index].task;
+    document.querySelectorAll(".edit").forEach((elem)=>{
+        elem.addEventListener("click", (e)=>{
+            let index = e.target.id;
+            let textElement = document.querySelector(`#${index}-span`);
+            let formElement = document.querySelector(`#${index}-form`);
+            
+            let forms = document.querySelectorAll("li form");
+            let span = document.querySelectorAll("li span");
+            forms.forEach( (elem,index) => {
+                elem.style.display = "none";
+                span[index].style.display = "flex";
             });
-
-            let text = textElement[index].innerText;
-            textElement[index].innerHTML = `<form action ='' class='edit-form'>
-                <input type='text' class='edit-input' value='${text}'>
-                <input type='hidden' value='${index}' class='edit-index'>
-                <button type='submit' class='edit-submit'><i class="fas fa-edit"></i></button>
-            </form>`;
-            editFunction();
+            swapDisplay(textElement,formElement);
+            editFunction(index);
         });
     });
 }
@@ -203,14 +218,6 @@ document.querySelector(".clear-completed").addEventListener("click", ()=>{
     updateUI();
 });
 
-//drop event
-
-let drop = () => {
-    console.log(5);
-}
-
-
-
 // update the lists in the to do list, call everytime to update
 
 let updateUI = ()=>{
@@ -220,6 +227,7 @@ let updateUI = ()=>{
 
     let tasks = getTaskArray();
     if(tasks){
+        let count = 0;
         tasks.forEach(elem => {
             const value = elem.task;
             let li = document.createElement('li');
@@ -230,6 +238,30 @@ let updateUI = ()=>{
             let edit = document.createElement('a');
             let del = document.createElement('a');
             let span = document.createElement('span');
+            span.setAttribute("id",`${elem.id}-span`);
+
+            let editform = document.createElement('form');
+            let editinput = document.createElement('input');
+            let hiddeninput = document.createElement('input');
+            let editbutton = document.createElement('button');
+            let editicon = document.createElement('i');
+            editform.className = "edit-form";
+            editform.setAttribute("id",`${elem.id}-form`);
+            editform.style.display = "none";
+            editicon.classList.add('fas','fa-edit');
+            editinput.className = "edit-input";
+            hiddeninput.setAttribute("type","hidden");
+            hiddeninput.setAttribute("value",elem.id);
+            hiddeninput.className = "edit-index";
+            editinput.setAttribute("type","text");
+            editinput.setAttribute("id",`${elem.id}-input`);
+            editinput.setAttribute("value",elem.task);
+            editbutton.setAttribute("type","submit");
+            editbutton.className = "edit-submit";
+            editbutton.appendChild(editicon);
+            editform.appendChild(editinput);
+            editform.appendChild(hiddeninput);
+            editform.appendChild(editbutton);
     
     
             lisettings.classList.add('lists-settings');
@@ -238,9 +270,8 @@ let updateUI = ()=>{
             iopt.classList.add('fas', 'fa-ellipsis-v', 'option-icon');
             iconoptions.classList.add('options');
             edit.classList.add('edit', 'fas', 'fa-pen-square');
+            edit.setAttribute("id",elem.id);
             del.classList.add('delete', 'fas', 'fa-trash');
-    
-            var id;
 
             span.innerText = value;
     
@@ -250,25 +281,43 @@ let updateUI = ()=>{
             lisettings.appendChild(icheck);
             lisettings.appendChild(iopt);
             li.appendChild(span);
+            li.appendChild(editform);
             li.appendChild(lisettings);
             li.setAttribute("draggable",true);
             li.setAttribute("id",elem.id);
+
+            //when the user starts dragging the task
+
             li.addEventListener("dragstart",(e)=>{
                 e.dataTransfer.setData("text",e.target.id);
             });
+
+            //when the user drops the task
+
             li.addEventListener("drop",(e)=>{
                 e.preventDefault();
                 let droptarget = document.querySelector(`#${e.target.id}`);
                 let dragtarget = document.querySelector(`#${e.dataTransfer.getData("text")}`);
-                droptarget.parentNode.insertBefore(dragtarget, droptarget.nextSibling);
+                droptarget.parentNode.insertBefore(dragtarget, droptarget);
+                document.querySelectorAll("li").forEach((elem,index) => {
+                    elem.style.backgroundColor = (index % 2 == 0)? "#ececec": "white";
+                });
+                callButtonFunctions();
             });
+
+            //when the dragging leaves a task item li
+
             li.addEventListener("dragleave",(e)=>{
                 e.preventDefault();
-                e.target.style.backgroundColor = "inherit";
+                document.querySelectorAll("li").forEach((elem,index) => {
+                    elem.style.backgroundColor = (index % 2 == 0)? "#ececec": "white";
+                });
             });
+
+            //when the user drags over a task item li
+
             li.addEventListener("dragover",(e)=>{
                 e.preventDefault();
-                e.target.style.backgroundColor = "#cecece";
             });
             ul.appendChild(li);
     

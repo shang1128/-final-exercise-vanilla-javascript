@@ -124,7 +124,7 @@ i {
   width: 100%;
   position: relative;
 }
-.list-view li > * {
+.list-view li > span {
   pointer-events: none;
 }
 .list-view li {
