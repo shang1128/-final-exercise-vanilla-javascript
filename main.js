@@ -87,11 +87,14 @@ addTaskForm.addEventListener("submit",(e) => {
 
 let deleteTask = () => {
     document.querySelectorAll(".delete").forEach( (elem,index) => {
-        elem.addEventListener("click", ()=>{
+        elem.addEventListener("click", (e)=>{
+            e.preventDefault();
             let taskArray = getTaskArray();
-            taskArray.splice(index,1);
+            let deleteIndex = pos = taskArray.map((elem) => { return elem.id; }).indexOf(e.target.id.split("_")[0]);
+            taskArray.splice(deleteIndex,1);
+            console.log(taskArray);
             storeTaskArray(taskArray);
-            updateUI();
+            document.querySelector(`#${e.target.id.split("_")[0]}`).style.display = "none";
         });
     });
 }
@@ -127,7 +130,6 @@ let editFunction = (index) => {
 // edit task buttons
 
 let editTask = ()=>{
-    let taskArray = getTaskArray();
     document.querySelectorAll(".edit").forEach((elem)=>{
         elem.addEventListener("click", (e)=>{
             let index = e.target.id;
@@ -272,6 +274,7 @@ let updateUI = ()=>{
             edit.classList.add('edit', 'fas', 'fa-pen-square');
             edit.setAttribute("id",elem.id);
             del.classList.add('delete', 'fas', 'fa-trash');
+            del.setAttribute("id",`${elem.id}_delete`);
 
             span.innerText = value;
     
@@ -302,7 +305,6 @@ let updateUI = ()=>{
                 document.querySelectorAll("li").forEach((elem,index) => {
                     elem.style.backgroundColor = (index % 2 == 0)? "#ececec": "white";
                 });
-                callButtonFunctions();
             });
 
             //when the dragging leaves a task item li

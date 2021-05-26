@@ -146,6 +146,9 @@ i {
 }
 .list-view li .edit-form {
   width: 80%;
+  height: 20px;
+  display: flex;
+  align-items: center;
 }
 .list-view li .edit-input {
   background-color: inherit;
