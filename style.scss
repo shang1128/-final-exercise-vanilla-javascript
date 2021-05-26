@@ -134,7 +134,9 @@ i {
     width: 100%;
     // overflow: hidden;
     position: relative;
-
+    li > *{
+        pointer-events:none;
+    }
     li{
         text-align: left;
         padding: 10px 10px 10px 40px;

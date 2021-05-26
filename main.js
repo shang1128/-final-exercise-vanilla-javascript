@@ -15,9 +15,13 @@ let checkTaskArray = ()=>{
     return (localStorage.getItem(tasksArray) != null)? true: false;
 }
 
+//get the array of tasks in local storage
+
 let getTaskArray = ()=> {
     return JSON.parse(localStorage.getItem(tasksArray));
 }
+
+//store the array of tasks to the local storage
 
 let storeTaskArray = (TaskArray)=> {
     localStorage.setItem(tasksArray,JSON.stringify(TaskArray));
@@ -74,7 +78,7 @@ addTaskForm.addEventListener("submit",(e) => {
 
 
 
-//delete tasks buttons
+//delete tasks buttons with delete functionality
 
 let deleteTask = () => {
     document.querySelectorAll(".delete").forEach( (elem,index) => {
@@ -86,7 +90,9 @@ let deleteTask = () => {
         });
     });
 }
+
 //edit functionality
+
 let editFunction = () => {
     let taskArray = getTaskArray();
     let inputs = document.querySelector(".edit-input");
@@ -125,6 +131,8 @@ let editTask = ()=>{
     });
 }
 
+//call the functionalities for buttons
+
 let callButtonFunctions = () =>{
     deleteTask();
     editTask();
@@ -148,7 +156,7 @@ let check = () => {
     });    
 }
 
-//clear completed
+//clear all completed tasks functionality
 
 let clear = ()=> {
     let taskArray = getTaskArray();
@@ -170,7 +178,7 @@ document.querySelector(".active-items").addEventListener("click", ()=> {
     let taskArray = getTaskArray();
     let count = 0;
     document.querySelectorAll("li").forEach( (elem,index) => {
-        elem.style.display = (taskArray[index].isCompleted == 0)? "block": "none";
+        elem.style.display = (taskArray[index].isCompleted == 0)? "flex": "none";
         elem.style.backgroundColor = (count % 2 != 0)? "white": "#ececec";
         count += (taskArray[index].isCompleted == 0)? 1 : 0;
     });
@@ -182,21 +190,29 @@ document.querySelector(".completed-items").addEventListener("click", ()=> {
     let taskArray = getTaskArray();
     let count = 0;
     document.querySelectorAll("li").forEach( (elem,index) => {
-        elem.style.display = (taskArray[index].isCompleted == 1)? "block": "none";
+        elem.style.display = (taskArray[index].isCompleted == 1)? "flex": "none";
         elem.style.backgroundColor = (count % 2 != 0)? "white": "#ececec";
         count += (taskArray[index].isCompleted == 1)? 1 : 0;
     });
 });
+
+//functionality to clear every completed task added to clear completed button
 
 document.querySelector(".clear-completed").addEventListener("click", ()=>{
     clear();
     updateUI();
 });
 
+//drop event
+
+let drop = () => {
+    console.log(5);
+}
 
 
 
-// ui
+// update the lists in the to do list, call everytime to update
+
 let updateUI = ()=>{
     ul.innerHTML = '';
     //const entryKeys = Object.keys(localStorage);
@@ -224,7 +240,8 @@ let updateUI = ()=>{
             edit.classList.add('edit', 'fas', 'fa-pen-square');
             del.classList.add('delete', 'fas', 'fa-trash');
     
-    
+            var id;
+
             span.innerText = value;
     
             iconoptions.appendChild(edit);
@@ -234,6 +251,25 @@ let updateUI = ()=>{
             lisettings.appendChild(iopt);
             li.appendChild(span);
             li.appendChild(lisettings);
+            li.setAttribute("draggable",true);
+            li.setAttribute("id",elem.id);
+            li.addEventListener("dragstart",(e)=>{
+                e.dataTransfer.setData("text",e.target.id);
+            });
+            li.addEventListener("drop",(e)=>{
+                e.preventDefault();
+                let droptarget = document.querySelector(`#${e.target.id}`);
+                let dragtarget = document.querySelector(`#${e.dataTransfer.getData("text")}`);
+                droptarget.parentNode.insertBefore(dragtarget, droptarget.nextSibling);
+            });
+            li.addEventListener("dragleave",(e)=>{
+                e.preventDefault();
+                e.target.style.backgroundColor = "inherit";
+            });
+            li.addEventListener("dragover",(e)=>{
+                e.preventDefault();
+                e.target.style.backgroundColor = "#cecece";
+            });
             ul.appendChild(li);
     
         });
@@ -245,6 +281,7 @@ let updateUI = ()=>{
 updateUI();
 
 // local storage
+
 function localStorageSetItem(item) {
     const newId = idGenerator();
 
@@ -260,6 +297,8 @@ function localStorageSetItem(item) {
     storeTaskArray(array);
 }
 
+//generates random id
+
 function idGenerator() {
     if (!localStorage.getItem(idGenPrefix)) {
         localStorage.setItem(idGenPrefix, 0);
@@ -271,6 +310,7 @@ function idGenerator() {
     return latestId;
 }
 
+//check if the added task is already existing in the array of tasks
 function isDuplicate(value) {
     const items = Object.entries(localStorage);
     for (let i = 0; i < items.length; i++) {
@@ -281,10 +321,5 @@ function isDuplicate(value) {
     return false;
 }
 
-document.querySelectorAll(".edit-input").forEach( (elem,index) => {
-    elem.addEventListener("keypress", (e) => {
-        alert(5);
-    }); 
-});
 
 

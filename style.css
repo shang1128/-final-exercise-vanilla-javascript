@@ -124,6 +124,9 @@ i {
   width: 100%;
   position: relative;
 }
+.list-view li > * {
+  pointer-events: none;
+}
 .list-view li {
   text-align: left;
   padding: 10px 10px 10px 40px;
