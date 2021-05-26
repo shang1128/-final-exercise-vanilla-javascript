@@ -133,6 +133,12 @@ i {
   justify-content: space-between;
   align-items: center;
 }
+.list-view li .edit-input {
+  background-color: #ececec;
+  outline: none;
+  border: none;
+  font-size: 17px;
+}
 .list-view li .lists-settings {
   width: 40px;
   float: right;

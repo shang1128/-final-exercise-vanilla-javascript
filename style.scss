@@ -144,6 +144,13 @@ i {
         justify-content: space-between;
         align-items: center;
 
+        .edit-input{
+            background-color: #ececec;
+            outline: none;
+            border:none;
+            font-size:17px;
+        }
+
         .lists-settings{
             width: 40px;
             float: right;

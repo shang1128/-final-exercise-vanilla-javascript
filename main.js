@@ -78,7 +78,9 @@ let deleteTask = () => {
 let editTask = ()=>{
     document.querySelectorAll(".edit").forEach((elem,index)=>{
         elem.addEventListener("click", ()=>{
-            document.querySelectorAll("li span")[index].innerHTML = `<input type='text' class='edit-input' value='${elem.innerText}'>`;
+            let textElement = document.querySelectorAll("li span");
+            let text = textElement[index].innerText;
+            textElement[index].innerHTML = `<input type='text' class='edit-input' value='${text}'>`;
         });
     });
 }
