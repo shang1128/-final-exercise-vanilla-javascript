@@ -133,11 +133,35 @@ i {
   justify-content: space-between;
   align-items: center;
 }
+.list-view li span {
+  width: 100%;
+  position: relative;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.list-view li .edit-form {
+  width: 80%;
+}
 .list-view li .edit-input {
-  background-color: #ececec;
-  outline: none;
-  border: none;
-  font-size: 17px;
+  background-color: inherit;
+  outline: 0;
+  border: 0;
+  width: 80%;
+  border-bottom: 1px solid grey;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+}
+.list-view li .edit-submit {
+  background-color: inherit;
+  border: 0;
+  outline: 0;
+}
+.list-view li .edit-submit i {
+  color: #0996f5;
+  font-size: 16px;
+  padding: 5px;
 }
 .list-view li .lists-settings {
   width: 40px;

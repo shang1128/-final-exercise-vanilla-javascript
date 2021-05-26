@@ -23,13 +23,27 @@ let storeTaskArray = (TaskArray)=> {
     localStorage.setItem(tasksArray,JSON.stringify(TaskArray));
 }
 
+//count items left
+
+let count = () => {
+    let taskArray = getTaskArray();
+    let count = 0;
+    taskArray.forEach(elem => {
+        count += (elem.isCompleted == 0)? 1: 0;
+    });
+
+    countText.innerText = `${count} Items left`;
+}
+
 //insert function
 
 let insertFunc = ()=>{
-    localStorageSetItem(inputs.value);
-    check();
-    updateUI();
-    inputs.value = "";
+    if(inputs.value != ''){
+        localStorageSetItem(inputs.value);
+        check();
+        updateUI();
+        inputs.value = "";
+    }
 }
 
 //add task using mouse click
@@ -72,15 +86,41 @@ let deleteTask = () => {
         });
     });
 }
+//edit functionality
+let editFunction = () => {
+    let taskArray = getTaskArray();
+    let inputs = document.querySelector(".edit-input");
+    if(document.querySelector(".edit-form")){
+        document.querySelector(".edit-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            let index = document.querySelector(".edit-index").value;
+            taskArray[index].task = inputs.value;
+            storeTaskArray(taskArray);
+            updateUI();
+        });
+    }
+}
+
+
 
 // edit task buttons
 
 let editTask = ()=>{
+    let taskArray = getTaskArray();
     document.querySelectorAll(".edit").forEach((elem,index)=>{
         elem.addEventListener("click", ()=>{
             let textElement = document.querySelectorAll("li span");
+            textElement.forEach( (elem,index) => {
+                elem.innerText = taskArray[index].task;
+            });
+
             let text = textElement[index].innerText;
-            textElement[index].innerHTML = `<input type='text' class='edit-input' value='${text}'>`;
+            textElement[index].innerHTML = `<form action ='' class='edit-form'>
+                <input type='text' class='edit-input' value='${text}'>
+                <input type='hidden' value='${index}' class='edit-index'>
+                <button type='submit' class='edit-submit'><i class="fas fa-edit"></i></button>
+            </form>`;
+            editFunction();
         });
     });
 }
@@ -88,6 +128,7 @@ let editTask = ()=>{
 let callButtonFunctions = () =>{
     deleteTask();
     editTask();
+    editFunction();
 }
 
 //check completed buttons
@@ -101,6 +142,8 @@ let check = () => {
             elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
             tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
             storeTaskArray(tasks);
+
+            count();
         });
     });    
 }
@@ -142,7 +185,6 @@ document.querySelector(".completed-items").addEventListener("click", ()=> {
         elem.style.display = (taskArray[index].isCompleted == 1)? "block": "none";
         elem.style.backgroundColor = (count % 2 != 0)? "white": "#ececec";
         count += (taskArray[index].isCompleted == 1)? 1 : 0;
-        console.log(count);
     });
 });
 
@@ -151,17 +193,7 @@ document.querySelector(".clear-completed").addEventListener("click", ()=>{
     updateUI();
 });
 
-//count items left
 
-let count = () => {
-    let taskArray = getTaskArray();
-    let count = 0;
-    taskArray.forEach(elem => {
-        count += (elem.isCompleted == 0)? 1: 0;
-    });
-
-    return count;
-}
 
 
 // ui
@@ -207,7 +239,6 @@ let updateUI = ()=>{
         });
         callButtonFunctions();
         check();
-        countText.innerText = `${count()} Items left`;
     }
 }
 
@@ -255,3 +286,5 @@ document.querySelectorAll(".edit-input").forEach( (elem,index) => {
         alert(5);
     }); 
 });
+
+
