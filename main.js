@@ -5,6 +5,8 @@ const prefix = "shang-";
 const idGenPrefix = "id-generator";
 const addTaskForm = document.querySelector(".add-task-form");
 const tasksArray = "tasks-array";
+const countText = document.querySelector(".items-count");
+const tasksLI = document.querySelectorAll("li");
 
 
 //check if the array for task exists
@@ -101,8 +103,67 @@ let check = () => {
     });    
 }
 
+//clear completed
+
+let clear = ()=> {
+    let taskArray = getTaskArray();
+    let clearedTasks = taskArray.filter(task => {
+        return task.isCompleted == 0;
+    });
+    storeTaskArray(clearedTasks);
+}
+
+//filter all
+
+document.querySelector(".all-items").addEventListener("click", ()=> {
+    updateUI();
+});
+
+//filter active
+
+document.querySelector(".active-items").addEventListener("click", ()=> {
+    let taskArray = getTaskArray();
+    let count = 0;
+    document.querySelectorAll("li").forEach( (elem,index) => {
+        elem.style.display = (taskArray[index].isCompleted == 0)? "block": "none";
+        elem.style.backgroundColor = (count % 2 != 0)? "white": "#ececec";
+        count += (taskArray[index].isCompleted == 0)? 1 : 0;
+    });
+});
+
+//filter completed
+
+document.querySelector(".completed-items").addEventListener("click", ()=> {
+    let taskArray = getTaskArray();
+    let count = 0;
+    document.querySelectorAll("li").forEach( (elem,index) => {
+        elem.style.display = (taskArray[index].isCompleted == 1)? "block": "none";
+        elem.style.backgroundColor = (count % 2 != 0)? "white": "#ececec";
+        count += (taskArray[index].isCompleted == 1)? 1 : 0;
+        console.log(count);
+    });
+});
+
+document.querySelector(".clear-completed").addEventListener("click", ()=>{
+    clear();
+    updateUI();
+});
+
+//count items left
+
+let count = () => {
+    let taskArray = getTaskArray();
+    let count = 0;
+    taskArray.forEach(elem => {
+        count += (elem.isCompleted == 0)? 1: 0;
+    });
+
+    return count;
+}
+
+
 // ui
-function updateUI() {
+let updateUI = ()=>{
     ul.innerHTML = '';
     //const entryKeys = Object.keys(localStorage);
     //const storageKeys = entryKeys.filter(key => key.includes(prefix)).sort();
@@ -144,6 +205,7 @@ function updateUI() {
         });
         callButtonFunctions();
         check();
+        countText.innerText = `${count()} Items left`;
     }
 }
 
