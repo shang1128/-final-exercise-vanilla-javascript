@@ -52,7 +52,49 @@ addTaskForm.addEventListener("submit",(e) => {
     e.preventDefault();
 
     insertFunc();
+    
 });
+
+//check completed buttons
+
+document.querySelectorAll(".complete").forEach( (elem,index) => {
+    elem.addEventListener("click", ()=>{
+        
+        let tasks = getTaskArray();
+
+        elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
+        tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
+        storeTaskArray(tasks);
+    });
+});
+
+//delete tasks buttons
+
+let deleteTask = () => {
+    document.querySelectorAll(".delete").forEach( (elem,index) => {
+        elem.addEventListener("click", ()=>{
+            let taskArray = getTaskArray();
+            taskArray.splice(index,1);
+            storeTaskArray(taskArray);
+            updateUI();
+        });
+    });
+}
+
+// edit task buttons
+
+let editTask = ()=>{
+    document.querySelectorAll(".edit").forEach((elem,index)=>{
+        elem.addEventListener("click", ()=>{
+            document.querySelectorAll("li span")[index].innerHTML = `<input type='text' class='edit-input' value='${elem.innerText}'>`;
+        });
+    });
+}
+
+let callButtonFunctions = () =>{
+    deleteTask();
+    editTask();
+}
 
 
 
@@ -63,56 +105,42 @@ function updateUI() {
     //const storageKeys = entryKeys.filter(key => key.includes(prefix)).sort();
 
     let tasks = getTaskArray();
-    tasks.forEach(elem => {
-        const value = elem.task;
-        let li = document.createElement('li');
-        let lisettings = document.createElement('div');
-        let icheck = document.createElement('i');
-        let iopt = document.createElement('i');
-        let iconoptions = document.createElement('div');
-        let edit = document.createElement('a');
-        let del = document.createElement('a');
-
-
-        lisettings.classList.add('lists-settings');
-        icheck.classList.add('fa', 'fa-check', 'complete');
-        icheck.style.color = (elem.isCompleted == 0)? "#c7bebe": "#18be09";
-        iopt.classList.add('fas', 'fa-ellipsis-v', 'option-icon');
-        iconoptions.classList.add('options');
-        edit.classList.add('edit', 'fas', 'fa-pen-square');
-        del.classList.add('delete', 'fas', 'fa-trash');
-
-
-        li.innerText = value;
-
-        del.addEventListener('click', function () {
-            const answ = confirm('do you want to delete ? ');
-            if (answ) {
-                localStorage.removeItem(key);
-                updateUI();
-            }
-            return;
-        })
-
-        edit.addEventListener('click', function () {
-            const newText = prompt(`Update ${value}`);
-            if (newText === '' || newText == null) {
-                return;
-            }
-            localStorage.setItem(key, newText);
-            updateUI();
-            return;
-        })
-
-        iconoptions.appendChild(edit);
-        iconoptions.appendChild(del);
-        iopt.appendChild(iconoptions);
-        lisettings.appendChild(icheck);
-        lisettings.appendChild(iopt);
-        li.appendChild(lisettings);
-        ul.appendChild(li);
-
-    })
+    if(tasks){
+        tasks.forEach(elem => {
+            const value = elem.task;
+            let li = document.createElement('li');
+            let lisettings = document.createElement('div');
+            let icheck = document.createElement('i');
+            let iopt = document.createElement('i');
+            let iconoptions = document.createElement('div');
+            let edit = document.createElement('a');
+            let del = document.createElement('a');
+            let span = document.createElement('span');
+    
+    
+            lisettings.classList.add('lists-settings');
+            icheck.classList.add('fa', 'fa-check', 'complete');
+            icheck.style.color = (elem.isCompleted == 0)? "#c7bebe": "#18be09";
+            iopt.classList.add('fas', 'fa-ellipsis-v', 'option-icon');
+            iconoptions.classList.add('options');
+            edit.classList.add('edit', 'fas', 'fa-pen-square');
+            del.classList.add('delete', 'fas', 'fa-trash');
+    
+    
+            span.innerText = value;
+    
+            iconoptions.appendChild(edit);
+            iconoptions.appendChild(del);
+            iopt.appendChild(iconoptions);
+            lisettings.appendChild(icheck);
+            lisettings.appendChild(iopt);
+            li.appendChild(span);
+            li.appendChild(lisettings);
+            ul.appendChild(li);
+    
+        });
+        callButtonFunctions();
+    }
 }
 
 // local storage
@@ -154,15 +182,9 @@ function isDuplicate(value) {
 
 updateUI();
 
-//check completed buttons
-
-document.querySelectorAll(".complete").forEach( (elem,index) => {
-    elem.addEventListener("click", ()=>{
-        
-        let tasks = getTaskArray();
-
-        elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
-        tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
-        storeTaskArray(tasks);
-    });
+document.querySelectorAll(".edit-input").forEach( (elem,index) => {
+    elem.addEventListener("keypress", (e) => {
+        alert(5);
+    }); 
 });
+
