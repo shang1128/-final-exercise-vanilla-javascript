@@ -25,12 +25,16 @@ body {
     position: relative;
     z-index: 2;
 }
+.bodydarkmode{
+    background: #000000e1;
+    // opacity: ;
+}
 
 .bd-header {
     width: 100%;
     height: 250px;
-    // background: url('./raw_Images/pexels-pixabay-371649.jpg');
     background: url('raw_Images/pexels-pixabay-371649.jpg');
+
     background-position: 0 -100px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -56,10 +60,37 @@ body {
     align-items: center;
     margin: 70px 0;
 
-    i:hover{
-        color: #042c47;
+    i{
+        position: relative;
+        
+        &:hover{
+            color: black;
+        }
+        #darkmode{
+        position: absolute;
+        left: 1px;
+        top: 8px;
+        opacity: 0;
+        cursor: pointer;
+
+
+        &::before{
+            content: '';
+            width: 31px;
+            height: 32px;
+            top: -12px;
+            left: -4px;
+            // border: 1px solid red;
+            position: absolute;
+
+        }
+        }
     }
 }
+.dmode{
+    color: black;
+}
+
 
 .inputs {
     background: #fff;
@@ -80,13 +111,13 @@ body {
 
 
     &::before{
-        content:'';
+        content: '';
         position: absolute;
-        top: 8px;
-        left: 7px;
+        top: 11px;
+        left: 9px;
         border: 2px solid #e6e5e5;
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
         border-radius: 50%;
     }
     #add{
@@ -118,6 +149,7 @@ i {
     border: none;
     border-radius: 5px;
     font-weight: bold;
+    margin-top: 20px;
 
     a:nth-child(2) {
         margin: 0 20px;
@@ -132,7 +164,7 @@ i {
     margin: 20px 0;
     height: 350px;
     width: 100%;
-    // overflow: hidden;
+    overflow-y: scroll;
     position: relative;
 
     li{
@@ -150,27 +182,37 @@ i {
             // height: 100px;
             // border: 1px solid red;
 
-            i:first-child{
+            i:last-child{
                 font-size: 12pt;
                 color: #c7bebe;
-                margin-right: 13px;
+                position: relative;
 
+                .check{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 1;
+                }
                 &:hover{
                     color: #18be09!important;
                 }
             }
-            i:last-child{
+            i:first-child{
                 font-size: 12pt;
                 color: #c7bebe;
-            position: relative;
-
+                margin-right: 13px;
+                position: relative;
+            
+            &:hover{
+                color: #fa0085;
+            }
             .options{
                 position: absolute;
                 padding: 6px 0px;
                 background: #fff;
                 width: 50px;
                 bottom: -5px;
-                left: 23px;
+                right: 15px;
                 text-align: center;
                 border-radius: 3px;
                 font-size: 11pt;
@@ -182,7 +224,7 @@ i {
                     width: 33px;
                     height: 28px;
                     // border: 1px solid red;
-                    left: -24px;
+                    right: -24px;
                     top: -3px;
                 }
 
@@ -219,19 +261,33 @@ i {
 
         }
     }
-    &-option {
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        display: flex;
-        padding: 0 20px 10px;
-        justify-content: space-between;
-
+   
+}
+@keyframes slide-left {
+    0% {
+              transform: translateX(0);
     }
+    100% {
+              transform: translateX(-3px);
+    }
+  }
+.list-view-option{
+    width: 100%;
+     // position: absolute;
+     background: #fff;
+    bottom: 0;
+    display: flex;
+    padding: 10px 20px 10px;
+    justify-content: space-between;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 ul li .lists-settings .option-icon:hover .options{
     display: block;
+    animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    
+    
 }
 
 
@@ -246,4 +302,8 @@ a {
     margin-top: 50px;
     letter-spacing: 1px;
     color: #a7a7a7;
+}
+.complete{
+    text-decoration: line-through;
+    color: green;
 }

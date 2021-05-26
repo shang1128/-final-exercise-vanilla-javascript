@@ -1,3 +1,6 @@
+
+const darkmode = document.getElementById('darkmode');
+const darkicon = document.querySelector('.fa-moon');
 const addbtn = document.getElementById('add');
 const ul = document.getElementById('lists');
 const inputs = document.getElementById('inputs')
@@ -34,8 +37,29 @@ let insertFunc = ()=>{
 
 //add task using mouse click
 
-addbtn.addEventListener('click', function () {
-    // console.log('add');
+addbtn.addEventListener('click', AddItem);
+inputs.addEventListener('keydown', AddItemEnter);
+
+document.body.addEventListener('keydown', function(e){
+// console.log(e.keyCode);
+    if(e.keyCode===46){
+
+        const keys = Object.keys(localStorage);
+
+        const filter = keys.filter(key => key.includes(prefix));
+        for(let i = 0; i<filter.length; i++){
+
+            localStorage.removeItem(filter[i]);
+
+        }
+        updateUI();
+
+    }
+
+})
+
+
+function AddItem() {
     if (!inputs.value) {
         return;
     }
@@ -207,6 +231,7 @@ let updateUI = ()=>{
         check();
         countText.innerText = `${count()} Items left`;
     }
+
 }
 
 updateUI();
@@ -248,8 +273,16 @@ function isDuplicate(value) {
     return false;
 }
 
+
 document.querySelectorAll(".edit-input").forEach( (elem,index) => {
     elem.addEventListener("keypress", (e) => {
         alert(5);
     }); 
 });
+
+//darkmode
+darkmode.addEventListener('click', function(){
+    document.body.classList.toggle('bodydarkmode');
+    darkicon.classList.toggle('dmode');
+})
+
