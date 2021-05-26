@@ -25,6 +25,7 @@ let storeTaskArray = (TaskArray)=> {
 
 let insertFunc = ()=>{
     localStorageSetItem(inputs.value);
+    check();
     updateUI();
     inputs.value = "";
 }
@@ -85,7 +86,20 @@ let callButtonFunctions = () =>{
     editTask();
 }
 
+//check completed buttons
 
+let check = () => {
+    document.querySelectorAll(".complete").forEach( (elem,index) => {
+        elem.addEventListener("click", ()=>{
+            
+            let tasks = getTaskArray();
+    
+            elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
+            tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
+            storeTaskArray(tasks);
+        });
+    });    
+}
 
 // ui
 function updateUI() {
@@ -129,8 +143,11 @@ function updateUI() {
     
         });
         callButtonFunctions();
+        check();
     }
 }
+
+updateUI();
 
 // local storage
 function localStorageSetItem(item) {
@@ -169,24 +186,8 @@ function isDuplicate(value) {
     return false;
 }
 
-updateUI();
-
 document.querySelectorAll(".edit-input").forEach( (elem,index) => {
     elem.addEventListener("keypress", (e) => {
         alert(5);
     }); 
 });
-
-//check completed buttons
-
-document.querySelectorAll(".complete").forEach( (elem,index) => {
-    elem.addEventListener("click", ()=>{
-        
-        let tasks = getTaskArray();
-
-        elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
-        tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
-        storeTaskArray(tasks);
-    });
-});
-
