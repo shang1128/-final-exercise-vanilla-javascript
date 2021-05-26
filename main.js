@@ -55,18 +55,7 @@ addTaskForm.addEventListener("submit",(e) => {
     
 });
 
-//check completed buttons
 
-document.querySelectorAll(".complete").forEach( (elem,index) => {
-    elem.addEventListener("click", ()=>{
-        
-        let tasks = getTaskArray();
-
-        elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
-        tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
-        storeTaskArray(tasks);
-    });
-});
 
 //delete tasks buttons
 
@@ -186,5 +175,18 @@ document.querySelectorAll(".edit-input").forEach( (elem,index) => {
     elem.addEventListener("keypress", (e) => {
         alert(5);
     }); 
+});
+
+//check completed buttons
+
+document.querySelectorAll(".complete").forEach( (elem,index) => {
+    elem.addEventListener("click", ()=>{
+        
+        let tasks = getTaskArray();
+
+        elem.style.color = (tasks[index].isCompleted != 0)? "#c7bebe": "#18be09";
+        tasks[index].isCompleted = (tasks[index].isCompleted == 0)? 1: 0;
+        storeTaskArray(tasks);
+    });
 });
 
