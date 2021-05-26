@@ -55,9 +55,13 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: 70px 0;
+
+    i:hover{
+        color: #042c47;
+    }
 }
 
-.input-search {
+.inputs {
     background: #fff;
     border: none;
     width: 100%;
@@ -80,10 +84,19 @@ body {
         position: absolute;
         top: 8px;
         left: 7px;
-        border: 2px solid #c2c1c1;
+        border: 2px solid #e6e5e5;
         width: 20px;
         height: 20px;
         border-radius: 50%;
+    }
+    #add{
+        position: absolute;
+        top: 12px;
+        right: 13px;
+
+        &:hover{
+            color: #0996f5;
+        }
     }
 
 }
@@ -119,7 +132,7 @@ i {
     margin: 20px 0;
     height: 350px;
     width: 100%;
-    overflow: hidden;
+    // overflow: hidden;
     position: relative;
 
     li{
@@ -127,8 +140,67 @@ i {
         padding: 10px 10px 10px 40px;
         list-style-type: none;
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
+        .lists-settings{
+            width: 40px;
+            float: right;
+            // height: 100px;
+            // border: 1px solid red;
 
+            i:first-child{
+                font-size: 12pt;
+                color: #c7bebe;
+                margin-right: 13px;
+
+                &:hover{
+                    color: #18be09;
+                }
+            }
+            i:last-child{
+                font-size: 12pt;
+                color: #c7bebe;
+            position: relative;
+
+            .options{
+                position: absolute;
+                padding: 6px 0px;
+                background: #fff;
+                width: 50px;
+                bottom: -5px;
+                left: 23px;
+                text-align: center;
+                border-radius: 3px;
+                font-size: 11pt;
+                display: none;
+
+                &::before{
+                    content: '';
+                    position: absolute;
+                    width: 33px;
+                    height: 28px;
+                    // border: 1px solid red;
+                    left: -24px;
+                    top: -3px;
+                }
+
+                a:first-child{
+                    margin-right: 10px;
+                    &:hover{
+                        color: #0996f5;
+                    }
+                }
+                a:last-child{
+                    // margin: 3px;
+                    &:hover{
+                        color: #f50909;
+                    }
+                }
+            }
+            }
+        }
         &::before{
             content: '\f0a4';
             font-family: "Font Awesome 5 Pro";
@@ -141,6 +213,11 @@ i {
         &:nth-child(odd) {
             background: #ececec;
         }
+        &:first-child{
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+
+        }
     }
     &-option {
         width: 100%;
@@ -152,6 +229,11 @@ i {
 
     }
 }
+
+ul li .lists-settings .option-icon:hover .options{
+    display: block;
+}
+
 
 a {
     text-decoration: none;

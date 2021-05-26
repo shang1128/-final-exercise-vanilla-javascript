@@ -62,7 +62,11 @@ body {
   margin: 70px 0;
 }
 
-.input-search {
+.top-display i:hover {
+  color: #042c47;
+}
+
+.inputs {
   background: #fff;
   border: none;
   width: 100%;
@@ -72,7 +76,7 @@ body {
   margin: 0 auto;
 }
 
-.input-search:focus {
+.inputs:focus {
   outline: none;
 }
 
@@ -85,10 +89,20 @@ body {
   position: absolute;
   top: 8px;
   left: 7px;
-  border: 2px solid #c2c1c1;
+  border: 2px solid #e6e5e5;
   width: 20px;
   height: 20px;
   border-radius: 50%;
+}
+
+.input #add {
+  position: absolute;
+  top: 12px;
+  right: 13px;
+}
+
+.input #add:hover {
+  color: #0996f5;
 }
 
 h2 {
@@ -122,7 +136,6 @@ i {
   margin: 20px 0;
   height: 350px;
   width: 100%;
-  overflow: hidden;
   position: relative;
 }
 
@@ -131,6 +144,70 @@ i {
   padding: 10px 10px 10px 40px;
   list-style-type: none;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.list-view li .lists-settings {
+  width: 40px;
+  float: right;
+}
+
+.list-view li .lists-settings i:first-child {
+  font-size: 12pt;
+  color: #c7bebe;
+  margin-right: 13px;
+}
+
+.list-view li .lists-settings i:first-child:hover {
+  color: #18be09;
+}
+
+.list-view li .lists-settings i:last-child {
+  font-size: 12pt;
+  color: #c7bebe;
+  position: relative;
+}
+
+.list-view li .lists-settings i:last-child .options {
+  position: absolute;
+  padding: 6px 0px;
+  background: #fff;
+  width: 50px;
+  bottom: -5px;
+  left: 23px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 11pt;
+  display: none;
+}
+
+.list-view li .lists-settings i:last-child .options::before {
+  content: '';
+  position: absolute;
+  width: 33px;
+  height: 28px;
+  left: -24px;
+  top: -3px;
+}
+
+.list-view li .lists-settings i:last-child .options a:first-child {
+  margin-right: 10px;
+}
+
+.list-view li .lists-settings i:last-child .options a:first-child:hover {
+  color: #0996f5;
+}
+
+.list-view li .lists-settings i:last-child .options a:last-child:hover {
+  color: #f50909;
 }
 
 .list-view li::before {
@@ -146,6 +223,11 @@ i {
   background: #ececec;
 }
 
+.list-view li:first-child {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
 .list-view-option {
   width: 100%;
   position: absolute;
@@ -157,6 +239,10 @@ i {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+ul li .lists-settings .option-icon:hover .options {
+  display: block;
 }
 
 a {
