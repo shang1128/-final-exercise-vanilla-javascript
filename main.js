@@ -3,6 +3,33 @@ const ul = document.getElementById('lists');
 const inputs = document.getElementById('inputs')
 const prefix = "shang-";
 const idGenPrefix = "id-generator";
+const addTaskForm = document.querySelector(".add-task-form");
+const tasksArray = "tasks-array";
+
+
+//check if the array for task exists
+
+let checkTaskArray = ()=>{
+    return (localStorage.getItem(tasksArray) != null)? true: false;
+}
+
+let getTaskArray = ()=> {
+    return JSON.parse(localStorage.getItem(tasksArray));
+}
+
+let storeTaskArray = (TaskArray)=> {
+    localStorage.setItem(tasksArray,JSON.stringify(TaskArray));
+}
+
+//insert function
+
+let insertFunc = ()=>{
+    localStorageSetItem(inputs.value);
+    updateUI();
+    inputs.value = "";
+}
+
+//add task using mouse click
 
 addbtn.addEventListener('click', function () {
     // console.log('add');
@@ -15,19 +42,27 @@ addbtn.addEventListener('click', function () {
         return;
     }
 
-    localStorageSetItem(inputs.value);
-    updateUI();
-    inputs.value = "";
+    insertFunc();
 
+});
+
+// add task using keyboard
+
+addTaskForm.addEventListener("submit",(e) => {
+    e.preventDefault();
+
+    insertFunc();
 });
 
 // ui
 function updateUI() {
     ul.innerHTML = '';
-    const entryKeys = Object.keys(localStorage);
-    const storageKeys = entryKeys.filter(key => key.includes(prefix)).sort();
-    storageKeys.forEach(key => {
-        const value = localStorage.getItem(key);
+    //const entryKeys = Object.keys(localStorage);
+    //const storageKeys = entryKeys.filter(key => key.includes(prefix)).sort();
+
+    let tasks = getTaskArray();
+    tasks.forEach(elem => {
+        const value = elem.task;
         let li = document.createElement('li');
         let lisettings = document.createElement('div');
         let icheck = document.createElement('i');
@@ -80,8 +115,17 @@ function updateUI() {
 // local storage
 function localStorageSetItem(item) {
     const newId = idGenerator();
-    console.log(newId);
-    localStorage.setItem(prefix + newId, item);
+
+    let array = (checkTaskArray())? getTaskArray(): [];
+    let taskObj = {
+        id: prefix + newId,
+        task: item,
+        isCompleted: 0
+    }
+
+    array.push(taskObj);
+
+    storeTaskArray(array);
 }
 
 function idGenerator() {

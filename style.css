@@ -1,13 +1,13 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   background: #f3f4f6;
 }
 
@@ -36,32 +36,23 @@ body {
   top: 0;
   z-index: 0;
 }
-
 .bd-header::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   z-index: 1;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(222, 35, 214, 0.529849)), color-stop(21%, rgba(147, 20, 201, 0.496236)), to(rgba(40, 131, 186, 0.611082)));
-  background: linear-gradient(90deg, rgba(222, 35, 214, 0.529849) 0%, rgba(147, 20, 201, 0.496236) 21%, rgba(40, 131, 186, 0.611082) 100%);
+  background: linear-gradient(90deg, rgba(222, 35, 214, 0.5298494398) 0%, rgba(147, 20, 201, 0.4962359944) 21%, rgba(40, 131, 186, 0.6110819328) 100%);
 }
 
 .top-display {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   margin: 70px 0;
 }
-
 .top-display i:hover {
   color: #042c47;
 }
@@ -75,7 +66,6 @@ body {
   padding: 10px 40px;
   margin: 0 auto;
 }
-
 .inputs:focus {
   outline: none;
 }
@@ -83,9 +73,8 @@ body {
 .input {
   position: relative;
 }
-
 .input::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 8px;
   left: 7px;
@@ -94,13 +83,11 @@ body {
   height: 20px;
   border-radius: 50%;
 }
-
 .input #add {
   position: absolute;
   top: 12px;
   right: 13px;
 }
-
 .input #add:hover {
   color: #0996f5;
 }
@@ -123,9 +110,12 @@ i {
   border-radius: 5px;
   font-weight: bold;
 }
-
 .list-actions a:nth-child(2) {
   margin: 0 20px;
+}
+
+.checked {
+  color: #18be09;
 }
 
 .list-view {
@@ -138,44 +128,32 @@ i {
   width: 100%;
   position: relative;
 }
-
 .list-view li {
   text-align: left;
   padding: 10px 10px 10px 40px;
   list-style-type: none;
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .list-view li .lists-settings {
   width: 40px;
   float: right;
 }
-
 .list-view li .lists-settings i:first-child {
   font-size: 12pt;
   color: #c7bebe;
   margin-right: 13px;
 }
-
 .list-view li .lists-settings i:first-child:hover {
   color: #18be09;
 }
-
 .list-view li .lists-settings i:last-child {
   font-size: 12pt;
   color: #c7bebe;
   position: relative;
 }
-
 .list-view li .lists-settings i:last-child .options {
   position: absolute;
   padding: 6px 0px;
@@ -188,57 +166,45 @@ i {
   font-size: 11pt;
   display: none;
 }
-
 .list-view li .lists-settings i:last-child .options::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 33px;
   height: 28px;
   left: -24px;
   top: -3px;
 }
-
 .list-view li .lists-settings i:last-child .options a:first-child {
   margin-right: 10px;
 }
-
 .list-view li .lists-settings i:last-child .options a:first-child:hover {
   color: #0996f5;
 }
-
 .list-view li .lists-settings i:last-child .options a:last-child:hover {
   color: #f50909;
 }
-
 .list-view li::before {
-  content: '\f0a4';
+  content: "";
   font-family: "Font Awesome 5 Pro";
   position: absolute;
   font-size: 20px;
   color: #0996f5;
   left: 10px;
 }
-
 .list-view li:nth-child(odd) {
   background: #ececec;
 }
-
 .list-view li:first-child {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
-
 .list-view-option {
   width: 100%;
   position: absolute;
   bottom: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 0 20px 10px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 ul li .lists-settings .option-icon:hover .options {
@@ -258,4 +224,5 @@ a {
   letter-spacing: 1px;
   color: #a7a7a7;
 }
+
 /*# sourceMappingURL=style.css.map */
