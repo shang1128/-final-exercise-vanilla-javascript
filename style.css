@@ -25,10 +25,14 @@ body {
   z-index: 2;
 }
 
+.bodydarkmode {
+  background: #000000e1;
+}
+
 .bd-header {
   width: 100%;
   height: 250px;
-  background: url("/final-exercise-vanilla-javascript/raw_Images/pexels-pixabay-371649.jpg");
+  background: url("./raw_Images/pexels-pixabay-371649.jpg");
   background-position: 0 -100px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -62,8 +66,33 @@ body {
   margin: 70px 0;
 }
 
+.top-display i {
+  position: relative;
+}
+
 .top-display i:hover {
-  color: #042c47;
+  color: black;
+}
+
+.top-display i #darkmode {
+  position: absolute;
+  left: 1px;
+  top: 8px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.top-display i #darkmode::before {
+  content: '';
+  width: 31px;
+  height: 32px;
+  top: -12px;
+  left: -4px;
+  position: absolute;
+}
+
+.dmode {
+  color: black;
 }
 
 .inputs {
@@ -87,11 +116,11 @@ body {
 .input::before {
   content: '';
   position: absolute;
-  top: 8px;
-  left: 7px;
+  top: 11px;
+  left: 9px;
   border: 2px solid #e6e5e5;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
 }
 
@@ -122,6 +151,7 @@ i {
   border: none;
   border-radius: 5px;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .list-actions a:nth-child(2) {
@@ -136,6 +166,7 @@ i {
   margin: 20px 0;
   height: 350px;
   width: 100%;
+  overflow-y: scroll;
   position: relative;
 }
 
@@ -160,53 +191,65 @@ i {
   float: right;
 }
 
-.list-view li .lists-settings i:first-child {
-  font-size: 12pt;
-  color: #c7bebe;
-  margin-right: 13px;
-}
-
-.list-view li .lists-settings i:first-child:hover {
-  color: #18be09;
-}
-
 .list-view li .lists-settings i:last-child {
   font-size: 12pt;
   color: #c7bebe;
   position: relative;
 }
 
-.list-view li .lists-settings i:last-child .options {
+.list-view li .lists-settings i:last-child .check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+.list-view li .lists-settings i:last-child:hover {
+  color: #18be09;
+}
+
+.list-view li .lists-settings i:first-child {
+  font-size: 12pt;
+  color: #c7bebe;
+  margin-right: 13px;
+  position: relative;
+}
+
+.list-view li .lists-settings i:first-child:hover {
+  color: #fa0085;
+}
+
+.list-view li .lists-settings i:first-child .options {
   position: absolute;
   padding: 6px 0px;
   background: #fff;
   width: 50px;
   bottom: -5px;
-  left: 23px;
+  right: 15px;
   text-align: center;
   border-radius: 3px;
   font-size: 11pt;
   display: none;
 }
 
-.list-view li .lists-settings i:last-child .options::before {
+.list-view li .lists-settings i:first-child .options::before {
   content: '';
   position: absolute;
   width: 33px;
   height: 28px;
-  left: -24px;
+  right: -24px;
   top: -3px;
 }
 
-.list-view li .lists-settings i:last-child .options a:first-child {
+.list-view li .lists-settings i:first-child .options a:first-child {
   margin-right: 10px;
 }
 
-.list-view li .lists-settings i:last-child .options a:first-child:hover {
+.list-view li .lists-settings i:first-child .options a:first-child:hover {
   color: #0996f5;
 }
 
-.list-view li .lists-settings i:last-child .options a:last-child:hover {
+.list-view li .lists-settings i:first-child .options a:last-child:hover {
   color: #f50909;
 }
 
@@ -228,21 +271,47 @@ i {
   border-top-left-radius: 5px;
 }
 
+@-webkit-keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-3px);
+            transform: translateX(-3px);
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-3px);
+            transform: translateX(-3px);
+  }
+}
+
 .list-view-option {
   width: 100%;
-  position: absolute;
+  background: #fff;
   bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 20px 10px;
+  padding: 10px 20px 10px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 ul li .lists-settings .option-icon:hover .options {
   display: block;
+  -webkit-animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+          animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 a {
@@ -257,5 +326,10 @@ a {
   margin-top: 50px;
   letter-spacing: 1px;
   color: #a7a7a7;
+}
+
+.complete {
+  text-decoration: line-through;
+  color: green;
 }
 /*# sourceMappingURL=style.css.map */

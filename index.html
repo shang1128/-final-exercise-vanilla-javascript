@@ -15,10 +15,13 @@
 
                 <div class="top-display">
                     <h2>TODO</h2>
-                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-moon">
+                        <label>
+                            <input type="checkbox" id="darkmode">
+                        </label>
+                    </i>
                 </div>
 
-                <form action="">
                     <div class="input">
                         <input type="text" name="" id="inputs" placeholder="Create a new to do" class="inputs" >
                         <a  class="fas fa-plus" id="add"></a>
@@ -27,22 +30,28 @@
                     <div class="list-view">
                         <ul id="lists">
 
-                            <!-- <li>
+                            <!-- <li>list
                                 <div class="lists-settings">
-                                <i class="fas fa-check complete"></i>
-                                <i class="fas fa-ellipsis-v option-icon">
-                                    <div class="options">
-                                        <a class="edit">Edit</a><a class="delete">Delete</a>
-                                    </div>
+                                    <i class="fas fa-ellipsis-v option-icon">
+                                        <div class="options">
+                                            <a class="edit">Edit</a><a class="delete">Delete</a>
+                                        </div>
+                                    </i>
+                                <i class="fas fa-check complete">
+                                        <label for="check" class="checklabel">
+                                            <input type="checkbox" name="check" class="check">
+                                        </label>
                                 </i>
+                             
                                 </div>
                             </li> -->
                             
                         </ul>
-                        <div class="list-view-option">
-                            <a >0 Items left</a>
-                            <a >Clear Completed</a>
-                        </div>
+                      
+                    </div>
+                    <div class="list-view-option">
+                        <a >0 Items left</a>
+                        <a >Clear Completed</a>
                     </div>
 
                     <div class="list-actions">
@@ -51,12 +60,11 @@
                         <a >Completed</a>
                     </div>
 
-                </form>
 
             </div>
             <div class="container">
                 <div class="drag-drop">
-                    <p>Drag and drop to reoder list</p>
+                    <p>Drag and drop to reorder list</p>
                 </div>
             </div>
         </div>
@@ -64,7 +72,7 @@
 
 
 
-    <!-- <script src="./main.js"></script> -->
-    <script src="/final-exercise-vanilla-javascript/main.js"></script>
+    <script src="./main.js"></script>
+    <!-- <script src="/final-exercise-vanilla-javascript/main.js"></script> -->
 </body>
 </html>
