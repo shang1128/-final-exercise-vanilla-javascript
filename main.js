@@ -308,7 +308,7 @@ let updateUI = ()=>{
 
             cancelbutton.addEventListener('click', function(){
                 // console.log('cancel');
-                updateUI();
+                swapDisplay(editform,span);
             })
             //when the user starts dragging the task
 
