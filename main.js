@@ -396,7 +396,8 @@ function isDuplicate(value) {
 
 //darkmode
 darkmode.addEventListener('click', function(){
-    document.body.classList.toggle('bodydarkmode');
+    const bodydm = document.querySelector('.bodydm');
+    bodydm.classList.toggle('bodydarkmode');
     darkicon.classList.toggle('dmode');
 })
 

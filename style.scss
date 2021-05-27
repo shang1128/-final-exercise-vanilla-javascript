@@ -29,14 +29,14 @@ body {
 .bd-header {
     width: 100%;
     height: 250px;
-    background: url('/final-exercise-vanilla-javascript/raw_Images/pexels-pixabay-371649.jpg');
-    // background: url('raw_Images/pexels-pixabay-371649.jpg');
+    // background: url('/final-exercise-vanilla-javascript/raw_Images/pexels-pixabay-371649.jpg');
+    background: url('/raw_Images/pexels-pixabay-371649.jpg');
     background-position: 0 -100px;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
     top: 0;
-    z-index: 0;
+    // z-index: 0;
 
     &::before {
         content: '';
@@ -82,8 +82,7 @@ body {
     }
 }
 .bodydarkmode{
-    background: #000000b9;
-    // opacity: ;
+    background: #000000d1;
 }
 .dmode{
     color: black;
