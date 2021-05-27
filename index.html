@@ -15,15 +15,19 @@
 
                 <div class="top-display">
                     <h2>TODO</h2>
-                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-moon">
+                        <label>
+                            <input type="checkbox" id="darkmode">
+                        </label>
+                    </i>
                 </div>
 
-                <form action="">
+                <form action="" class='add-task-form'>
                     <div class="input">
                         <input type="text" name="" id="inputs" placeholder="Create a new to do" class="inputs" >
                         <a  class="fas fa-plus" id="add"></a>
                     </div>
-                   
+                </form>
                     <div class="list-view">
                         <ul id="lists">
 
@@ -39,19 +43,19 @@
                             </li> -->
                             
                         </ul>
-                        <div class="list-view-option">
-                            <a >0 Items left</a>
-                            <a >Clear Completed</a>
-                        </div>
+                       
                     </div>
-
+                    <div class="list-view-option">
+                        <a class='items-count'>0 Items left</a>
+                        <a class='clear-completed'>Clear Completed</a>
+                    </div>
                     <div class="list-actions">
-                        <a >All</a>
-                        <a >Active</a>
-                        <a >Completed</a>
+                        <a class='all-items'>All</a>
+                        <a class='active-items'>Active</a>
+                        <a class='completed-items'>Completed</a>
                     </div>
 
-                </form>
+                
 
             </div>
             <div class="container">
@@ -64,7 +68,7 @@
 
 
 
-    <!-- <script src="./main.js"></script> -->
     <script src="/final-exercise-vanilla-javascript/main.js"></script>
+    <!-- <script src="main.js"></script> -->
 </body>
 </html>
