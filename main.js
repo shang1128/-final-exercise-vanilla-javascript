@@ -1,3 +1,5 @@
+const darkmode = document.getElementById('darkmode');
+const darkicon = document.querySelector('.fa-moon');
 const addbtn = document.getElementById('add');
 const ul = document.getElementById('lists');
 const inputs = document.getElementById('inputs')
@@ -77,6 +79,11 @@ addbtn.addEventListener('click', function () {
 addTaskForm.addEventListener("submit",(e) => {
     e.preventDefault();
 
+    if (isDuplicate(inputs.value)) {
+        alert('already exist')
+        return;
+    }
+
     insertFunc();
     
 });
@@ -114,6 +121,7 @@ let editFunction = (index) => {
         document.querySelector(`#${index}-form`).addEventListener("submit", (e) => {
             e.preventDefault();
             let textvalue = document.querySelector(`#${index}-input`).value;
+            if(isDuplicate(textvalue)) return;
             taskArray = taskArray.map( elem=> {
                 return (elem.id == index)? {id:elem.id, task:textvalue, isCompleted: elem.isCompleted}: elem;
             });
@@ -142,8 +150,10 @@ let editTask = ()=>{
                 elem.style.display = "none";
                 span[index].style.display = "flex";
             });
+
             swapDisplay(textElement,formElement);
             editFunction(index);
+            
         });
     });
 }
@@ -246,11 +256,14 @@ let updateUI = ()=>{
             let editinput = document.createElement('input');
             let hiddeninput = document.createElement('input');
             let editbutton = document.createElement('button');
+            let cancelbutton = document.createElement('button');
             let editicon = document.createElement('i');
+            let cancelicon = document.createElement('i');
             editform.className = "edit-form";
             editform.setAttribute("id",`${elem.id}-form`);
             editform.style.display = "none";
             editicon.classList.add('fas','fa-edit');
+            cancelicon.classList.add('far','fa-window-close');
             editinput.className = "edit-input";
             hiddeninput.setAttribute("type","hidden");
             hiddeninput.setAttribute("value",elem.id);
@@ -260,10 +273,13 @@ let updateUI = ()=>{
             editinput.setAttribute("value",elem.task);
             editbutton.setAttribute("type","submit");
             editbutton.className = "edit-submit";
+            cancelbutton.className = "cancel-submit";
             editbutton.appendChild(editicon);
+            cancelbutton.appendChild(cancelicon);
             editform.appendChild(editinput);
             editform.appendChild(hiddeninput);
             editform.appendChild(editbutton);
+            editform.appendChild(cancelbutton);
     
     
             lisettings.classList.add('lists-settings');
@@ -281,14 +297,19 @@ let updateUI = ()=>{
             iconoptions.appendChild(edit);
             iconoptions.appendChild(del);
             iopt.appendChild(iconoptions);
-            lisettings.appendChild(icheck);
             lisettings.appendChild(iopt);
+            lisettings.appendChild(icheck); 
             li.appendChild(span);
             li.appendChild(editform);
             li.appendChild(lisettings);
             li.setAttribute("draggable",true);
             li.setAttribute("id",elem.id);
 
+
+            cancelbutton.addEventListener('click', function(){
+                // console.log('cancel');
+                updateUI();
+            })
             //when the user starts dragging the task
 
             li.addEventListener("dragstart",(e)=>{
@@ -363,14 +384,29 @@ function idGenerator() {
 
 //check if the added task is already existing in the array of tasks
 function isDuplicate(value) {
-    const items = Object.entries(localStorage);
+    const items = JSON.parse(localStorage.getItem('tasks-array'));
+    if (!items) return;
     for (let i = 0; i < items.length; i++) {
-        if (items[i][1].toLowerCase().replace(/ /ig, '') === value.toLowerCase().replace(/ /ig, '')) {
+        if (items[i].task.toLowerCase().replace(/ /ig, '') === value.toLowerCase().replace(/ /ig, '')) {
             return true;
         }
     }
     return false;
 }
 
+//darkmode
+darkmode.addEventListener('click', function(){
+    document.body.classList.toggle('bodydarkmode');
+    darkicon.classList.toggle('dmode');
+})
 
 
+document.body.addEventListener('keydown', function(e){
+    // console.log(e.keyCode);
+        if(e.keyCode===46){
+    
+           localStorage.removeItem('tasks-array');
+           updateUI();
+            }
+    
+        });
