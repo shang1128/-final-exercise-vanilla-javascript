@@ -322,10 +322,22 @@ let updateUI = ()=>{
                 e.preventDefault();
                 let droptarget = document.querySelector(`#${e.target.id}`);
                 let dragtarget = document.querySelector(`#${e.dataTransfer.getData("text")}`);
-                droptarget.parentNode.insertBefore(dragtarget, droptarget);
-                document.querySelectorAll("li").forEach((elem,index) => {
-                    elem.style.backgroundColor = (index % 2 == 0)? "#ececec": "white";
-                });
+                let droptargetid = e.target.id;
+                let dragtargetid = e.dataTransfer.getData("text");
+
+                let taskArray = getTaskArray();
+
+                let dropindex = taskArray.map( elem => {return elem.id}).indexOf(droptargetid);
+                let dragindex = taskArray.map( elem => {return elem.id}).indexOf(dragtargetid);
+                console.log(taskArray);
+                let target = taskArray[dragindex];
+                taskArray.splice(dragindex, 1);
+                taskArray.splice(dropindex,0, target);
+
+                console.log(taskArray);
+                //droptarget.parentNode.insertBefore(dragtarget, droptarget);
+                storeTaskArray(taskArray);
+                updateUI();
             });
 
             //when the dragging leaves a task item li

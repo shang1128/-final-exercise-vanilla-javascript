@@ -164,6 +164,7 @@ i {
     position: relative;
     li > span{
         pointer-events:none;
+        overflow-x: hidden;
     }
     li{
         text-align: left;
@@ -174,7 +175,7 @@ i {
         justify-content: space-between;
         align-items: center;
         span{
-            width:100%;
+            width:90%;
             position: relative;
             height:20px;
             display:flex;
